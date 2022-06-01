@@ -40,7 +40,7 @@ sns.set_style("ticks")
 matplotlib_inline.backend_inline.set_matplotlib_formats('png')
 ```
 
-Next, we load in our data. 
+Next, we load in our data.
 
 
 ```python
@@ -79,8 +79,8 @@ def getNM(string):
         return 0
 ```
 
-First, we'll grab categorical columns for our four email addresses, 
-- `JG`: `josephgoodman85@gmail.com` 
+First, we'll grab categorical columns for our four email addresses,
+- `JG`: `josephgoodman85@gmail.com`
 - `GD`: `nickesc.gd@gmail.com`
 - `NE`: `nescobar@oxy.edu`
 - `NM`: `nescobar@oxy.edu`
@@ -157,7 +157,7 @@ def getTrash(string):
         return 0
 ```
 
-Next, we'll do a similar thing for the labels; we check if the labels contain the regular strings, and assign True or False based on that. 
+Next, we'll do a similar thing for the labels; we check if the labels contain the regular strings, and assign True or False based on that.
 > Important to note is that emails can have any, all or none of these labels
 
 
@@ -614,9 +614,9 @@ Finally, we create a clean, new dataframe with all the message data.
 ```python
 emails['date'] = emails.apply(lambda row: datetime.datetime(row['year'], row['month'], row['day']), axis=1)
 
-emails = emails[(emails['delivered'] == "josephgoodman85@gmail.com") 
-                | (emails['delivered'] == "nickesc.gd@gmail.com") 
-                | (emails['delivered'] == "nescobar@oxy.edu") 
+emails = emails[(emails['delivered'] == "josephgoodman85@gmail.com")
+                | (emails['delivered'] == "nickesc.gd@gmail.com")
+                | (emails['delivered'] == "nescobar@oxy.edu")
                 | (emails['delivered'] == "nickesc.media@gmail.com")]
 
 messages = emails[['delivered','from','to','id','threadId','internalDate','date', 'sizeEstimate','body','subject','year','month','day', 'JG', 'GD', 'NE', 'NM','updates','personal','promotions', 'social','forums','spam','starred','important','trash','thread']]
@@ -1311,7 +1311,7 @@ sns.pairplot(messages, hue='delivered')
 ```
 
 PairPlot of all numeric values
-[![hugePairPlot](img/hugePairPlot.png)](https://google.com)
+![hugePairPlot](hugePairPlot.png)
 
 Click the image to view it in a new tab.
 
@@ -1363,9 +1363,9 @@ plt.show()
 ```
 
 
-    
-![png](output_21_0.png)
-    
+
+![png](docs/output_21_0.png)
+
 
 
 
@@ -1391,9 +1391,9 @@ sns.displot(data=messages, x='date', hue='delivered', kind='ecdf', height=5, asp
 
 
 
-    
-![png](output_23_1.png)
-    
+
+![png](docs/output_23_1.png)
+
 
 
 Again, we can point out the weird behavior in 2018 with the next two graphs:
@@ -1406,9 +1406,9 @@ plt.show()
 ```
 
 
-    
-![png](output_25_0.png)
-    
+
+![png](docs/output_25_0.png)
+
 
 
 Here we see what we would expect given the shape of the other ECDF graphs.
@@ -1424,9 +1424,9 @@ plt.show()
 ```
 
 
-    
-![png](output_27_0.png)
-    
+
+![png](docs/output_27_0.png)
+
 
 
 Finally, let's look at that period:
@@ -1455,9 +1455,9 @@ sns.histplot(data=three,x="date", hue = 'delivered', kde=True).set(title = 'Summ
 
 
 
-    
-![png](output_29_1.png)
-    
+
+![png](docs/output_29_1.png)
+
 
 
 I won't lie, I was confused by this. Despite that encyclopedic knowledge of my life, I really don't understand how it's possible I got 0 emails to `JG` for an entire month. I can only see two ways this is possible:
@@ -1870,9 +1870,9 @@ plt.show()
 ```
 
 
-    
-![png](output_33_0.png)
-    
+
+![png](docs/output_33_0.png)
+
 
 
 With a closer look we can definitely tell that the pattern dips in the summer. This is, presumabley, because Oxy mostly stops sending me emails over the summer, so whatever is left should be non-Oxy emails. We should be able to filter those out but excluding any row with a `from` address with `oxy.edu`, which should hopefully leave us with an even distribution of emails through the year.
@@ -1891,9 +1891,9 @@ plt.show()
 ```
 
 
-    
-![png](output_36_0.png)
-    
+
+![png](docs/output_36_0.png)
+
 
 
 We can start to see here how Oxy (the back plot) and non-Oxy (the front plot) email distribution compares. A much more consistent distribution, but we're still getting a little bit of the dipping, so we'll also look at the top couple of addresses to make sure we're not missing any Oxy emails that may have come through under another domain.
@@ -1944,9 +1944,9 @@ plt.show()
 ```
 
 
-    
-![png](output_40_0.png)
-    
+
+![png](docs/output_40_0.png)
+
 
 
 Tada! We have our expected distribution! Our non-Oxy messages form a nice even distribution over time, exactly what we were expecting to see. Similarly, we're going to grab the addresses for my main address, `GD` and take a look at the more interesting ones.
@@ -1999,9 +1999,9 @@ sns.displot(data=fromMes,x="date", hue = 'from', kind = 'kde', height = 5, aspec
 
 
 
-    
-![png](output_43_1.png)
-    
+
+![png](docs/output_43_1.png)
+
 
 
 Here we can see a number of addresses, pulled out and highlighted over time. My favorite of all of these (and by favorite I mean the one that makes me gag a little) is Drop.com. Drop is an online marketplace that sens hobbyist and enthusiast gear. During the pandemic, they grew pretty big and expanded a lot. At the same time, we see on the distribution plot that during the height of people's panic about the pandemic, early-late 2020, they significantly increased their marketing. During a time when millions of people were struggling to afford to live and many were being laid off and prioritizing necessities, Drop ramps up advertising and marketing and push their products as hard as ever. It leaves a bad taste in the mouth. At the same time, we see sites like eBay reduce the number of marketing emails they send, as you can see in its dip, and stores like Nordstrom completely drop their email marketing campaigns encouraging people to spend money they don't have. The New York Times and Youtube, who have both done an enormous amount of coverage on the pandemic, starts sending out more newsletters as the pandemic crests. An interesting comparison of corporate priorities during a crisis.
@@ -2036,57 +2036,57 @@ sns.displot(data=thread,x="date", hue = 'delivered', kind = 'kde', height = 5, a
 
 
 
-    
-![png](output_45_1.png)
-    
+
+![png](docs/output_45_1.png)
 
 
 
-    
-![png](output_45_2.png)
-    
+
+
+![png](docs/output_45_2.png)
 
 
 
-    
-![png](output_45_3.png)
-    
+
+
+![png](docs/output_45_3.png)
 
 
 
-    
-![png](output_45_4.png)
-    
+
+
+![png](docs/output_45_4.png)
 
 
 
-    
-![png](output_45_5.png)
-    
+
+
+![png](docs/output_45_5.png)
 
 
 
-    
-![png](output_45_6.png)
-    
+
+
+![png](docs/output_45_6.png)
 
 
 
-    
-![png](output_45_7.png)
-    
+
+
+![png](docs/output_45_7.png)
 
 
 
-    
-![png](output_45_8.png)
-    
+
+
+![png](docs/output_45_8.png)
 
 
 
-    
-![png](output_45_9.png)
-    
+
+
+![png](docs/output_45_9.png)
+
 
 
 Finally, I want to spend a short amount of time looking at the label distribution. We could say a lot about them, but I want to keep it brief, they're pretty and speak for themselves in a lot of ways I think. The most interesting of these though, I think, is the spam plot. The spam plot only shows data from 2022. To me, this either means the spam label wasn't created until then, or more likely I think, the spam gets deleted every so often, which would also explain the shape of the graph. It's also intersting to see where the different accounts differ significantly in the types of emails they get, like how `NE` receives almost all the Forum, Personal, and Important emails, which makes sense given it's my school email. You can also see, in many of these, the drop off that came from the switch away from `JG`, and other accounts picking up the slack.
